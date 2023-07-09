@@ -3,6 +3,10 @@ import model.RacingEngine
 import java.util.*
 
 class RacingPlayer {
+    companion object {
+        const val INPUT_RACING_STEP_COUNT_MESSAGE = "자동차 전진을 몇 회 까지 허용하시겠습니까?"
+        const val INPUT_CAR_NAMES_MESSAGE = "자동차 이름을 입력해주세요. (콤마를 통해서 이름 구분)"
+    }
     private val scanner = Scanner(System.`in`)
     fun play(inputCarNames: String, racingStepCount: Int) {
         val carTrack = CarTrack()
@@ -17,7 +21,7 @@ class RacingPlayer {
     }
 
     fun inputRacingStepCount(): Int {
-        print("자동차 전진을 몇 회 까지 허용하시겠습니까?")
+        print(INPUT_RACING_STEP_COUNT_MESSAGE)
 
         return runCatching { scanner.nextLine().toInt() }
             .onSuccess { it }
@@ -25,7 +29,8 @@ class RacingPlayer {
     }
 
     fun inputCarNames(): String {
-        print("자동차 이름을 입력해주세요. (콤마를 통해서 이름 구분)")
+        print(INPUT_CAR_NAMES_MESSAGE)
+
         return runCatching { scanner.nextLine() }
             .onSuccess { it }
             .getOrNull() ?: inputCarNames()
