@@ -27,9 +27,18 @@ class CarTrack {
     }
 
     fun printCarRacingResult(): List<String> {
-        val carRacingResult = cars.map { carDashboard.toTemplateMessage(it) }.toList()
+        val carRacingResult = cars.map { carDashboard.toCurrentStepTemplateMessage(it) }.toList()
         println(carRacingResult)
 
         return carRacingResult
+    }
+
+    fun printWinnerResult(): String {
+        val maxStep = cars.maxOf { it.step }
+        val winners = cars.filter { it.step == maxStep }.map { it.name }.toList()
+        val winnerTemplateMessage = carDashboard.toWinnerTemplateMessage(winners)
+        println(winnerTemplateMessage)
+
+        return winnerTemplateMessage
     }
 }
