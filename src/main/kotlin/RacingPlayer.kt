@@ -3,6 +3,7 @@ import model.RacingEngine
 import java.util.*
 
 class RacingPlayer {
+    private val scanner = Scanner(System.`in`)
     fun play(inputCarNames: String, racingStepCount: Int) {
         val carTrack = CarTrack()
         carTrack.init(
@@ -14,16 +15,28 @@ class RacingPlayer {
         carTrack.printCarRacingResult()
         carTrack.printWinnerResult()
     }
+
+    fun inputRacingStepCount(): Int {
+        print("자동차 전진을 몇 회 까지 허용하시겠습니까?")
+
+        return runCatching { scanner.nextLine().toInt() }
+            .onSuccess { it }
+            .getOrNull() ?: inputRacingStepCount()
+    }
+
+    fun inputCarNames(): String {
+        print("자동차 이름을 입력해주세요. (콤마를 통해서 이름 구분)")
+        return runCatching { scanner.nextLine() }
+            .onSuccess { it }
+            .getOrNull() ?: inputCarNames()
+    }
 }
 
 fun main() {
-    // TODO : main 부분 로직 보완 필요
     val player = RacingPlayer()
-    val sc = Scanner(System.`in`)
-    print("자동차 전진을 몇 회 까지 허용하시겠습니까?")
-    val racingStepCount = sc.nextInt()
 
-    print("자동차 이름을 입력해주세요. (콤마를 통해서 이름 구분)")
-    val inputCarNames = sc.next()
-    player.play(inputCarNames, racingStepCount)
+    val stepCount = player.inputRacingStepCount()
+    val carNames = player.inputCarNames()
+
+    player.play(carNames, stepCount)
 }
