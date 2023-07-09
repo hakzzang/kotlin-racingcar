@@ -1,5 +1,8 @@
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import util.CarCreator
+import util.CarNameChecker
 
 class CarTest {
     @Test
@@ -10,7 +13,7 @@ class CarTest {
         // when
         val car = carCreator.create("자동차")
         // then
-        assert(car.name == "자동차")
+        assertEquals(car.name == "자동차", true)
     }
 
     @Test
@@ -21,6 +24,30 @@ class CarTest {
         // when
         val car = carCreator.create("자동차")
         // then
-        assert(car.name != "자동차2")
+        assertEquals(car.name == "자동차2", false)
+    }
+
+    @Test
+    @DisplayName("자동차 이름을 체크하는 로직 대한 성공 테스트")
+    fun testCheckCarNameThenTrue() {
+        // given
+        val carCreator = CarCreator()
+        val carNameChecker = CarNameChecker()
+        // when
+        val car = carCreator.create("자동차")
+        // then
+        assertEquals(carNameChecker.isValidate(car), true)
+    }
+
+    @Test
+    @DisplayName("자동차 이름을 체크하는 로직 대한 실패 테스트")
+    fun testCheckCarNameThenFalse() {
+        // given
+        val carCreator = CarCreator()
+        val carNameChecker = CarNameChecker()
+        // when
+        val car = carCreator.create("자동차이름5")
+        // then
+        assertEquals(carNameChecker.isValidate(car), false)
     }
 }
