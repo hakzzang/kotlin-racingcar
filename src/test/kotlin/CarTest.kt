@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import util.CarCreator
 import util.CarNameChecker
+import java.security.InvalidParameterException
 
 class CarTest {
     @Test
@@ -51,6 +52,32 @@ class CarTest {
         val car = carCreator.create("자동차이름5")
         // then
         assertEquals(carNameChecker.isValidate(car), false)
+    }
+
+    @Test
+    @DisplayName("자동차 이름을 입력하는 로직 대한 성공 테스트")
+    fun testInputCheckCarNamesThenTrue() {
+        // given
+        val carCreator = CarCreator()
+        val carNameChecker = CarNameChecker()
+        // when
+        val cars = carCreator.createCars("BTS,봉준호,손흥민,제이팍,렛츠고")
+        // then
+        assertEquals(carNameChecker.isValidate(cars), true)
+    }
+
+    @Test
+    @DisplayName("자동차 이름을 입력하는 로직 대한 실패 테스트")
+    fun testInputCheckCarNamesThenFalse() {
+        // given
+        val carCreator = CarCreator()
+        val carNameChecker = CarNameChecker()
+        // when
+        val cars = carCreator.createCars("BTS,봉준호,손흥민,제이팍,렛츠고오우슛")
+        // then
+        assertThrows<InvalidParameterException> {
+            carNameChecker.isValidate(cars)
+        }
     }
 
     @Test
