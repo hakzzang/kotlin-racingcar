@@ -67,8 +67,8 @@ class CarTest {
     }
 
     @Test
-    @DisplayName("자동차 이름을 입력하는 로직 대한 실패 테스트")
-    fun testInputCheckCarNamesThenFalse() {
+    @DisplayName("자동차 이름을 입력하는 로직 대한 에러 테스트")
+    fun testInputCheckCarNamesThenThrow() {
         // given
         val carCreator = CarCreator()
         val carNameChecker = CarNameChecker()
@@ -109,8 +109,8 @@ class CarTest {
     }
 
     @Test
-    @DisplayName("자동차 드라이브에 대한 엔진 실패 테스트")
-    fun testNullCarEngineThenTrue() {
+    @DisplayName("자동차 드라이브에 대한 엔진 에러 테스트")
+    fun testNullCarEngineThenThrow() {
         // given
         val carCreator = CarCreator()
 
